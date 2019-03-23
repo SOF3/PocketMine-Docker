@@ -17,10 +17,14 @@ WORKDIR /pocketmine
 ADD bin /pocketmine/bin
 ADD PocketMine-MP.phar /pocketmine/PocketMine-MP.phar
 ADD start.sh /pocketmine/start.sh
-RUN chown -R pocketmine:1000 .
+RUN chmod +x bin/php7/bin/php start.sh
+
+RUN curl -o /install-plugin https://raw.githubusercontent.com/SOF3/PocketMine-Docker/master/install-plugin.sh
+RUN chmod +x /install-plugin
+
+RUN chown -R pocketmine:pocketmine . /install-plugin
 
 USER pocketmine
-RUN chmod +x bin/php7/bin/php start.sh
 
 # RUN sudo mkdir /data /plugins
 VOLUME ["/data", "/plugins"]
